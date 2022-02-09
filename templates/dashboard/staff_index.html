@@ -1,0 +1,53 @@
+{% load crispy_forms_tags %}
+
+<div class="container">
+       <div class="row my-4">
+              <div class="col-md-4 ">
+                     <div class="border bg-white p-3">
+                            <h4>Make Request</h4>
+                            <hr>
+                            <form method="POST">
+                             {% csrf_token %}
+                             {{ form|crispy }}
+                             <input type="submit" class="btn btn-info btn-block" value="Make Request">
+                            </form>
+                            
+                     </div>
+              </div>
+              <div class="col-md-8 ">
+                     <div class="border bg-white p-3">
+                            <h4>Order Record</h4>
+                            <hr>
+                            <table>
+                                   <table class="table bg-white">
+                                          <thead class="bg-info">
+                                            <tr class="text-white">
+                                             <th scope="col">Id</th>
+                                              <th scope="col">Products</th>
+                                              <th scope="col">Category</th>
+                                              <th scope="col">Quantity</th>
+                                              <th scope="col">Date-Time</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                          {% for order in orders%}
+                                          {% if order.staff == user %}
+                                          
+                                            <tr>
+                                              <td>{{order.id}}</td>
+                                              <td>{{order.product}}</td>
+                                              <td>{{order.product.category}}</td>
+                                              <td>{{order.order_quantity}}</td>
+                                              <td>{{order.date}}</td>
+                                            </tr>
+                                          
+                                          {% endif %}
+                                          {% endfor %}
+                                          </tbody>
+                                        </table>
+
+                            </table>
+                     </div>
+              </div>
+       </div>
+</div>
